@@ -1,12 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PrismaService } from './prisma/prisma.service.js';
+import { Public } from './auth/decorators/public.decorator.js';
 
 @ApiTags('Health')
 @Controller('health')
 export class AppController {
   constructor(private readonly prisma: PrismaService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Verify API and PostgreSQL connectivity' })
   async check() {
